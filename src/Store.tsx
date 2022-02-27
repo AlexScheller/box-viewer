@@ -9,7 +9,7 @@ export type TAppState = Readonly<{
 
 export enum ActionType {
   increment = "increment",
-  decrement = "decprement",
+  decrement = "decrement",
 }
 
 type TAction = {
@@ -54,7 +54,7 @@ function AppStore({ children }: { children: React.ReactNode }) {
 // context.
 const AppContext = React.createContext<TAppStore>(null as any);
 
-function connect<C, S, D>(
+function connect<C, S = {}, D = {}>(
   mapStateToProps: (state: TAppState) => S,
   mapDispatchToProps?: (dispatch: TDispatch) => D
 ) {

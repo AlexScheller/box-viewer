@@ -57,11 +57,7 @@ function mapDispatchToProps(dispatch: TDispatch): TDispatchProps {
 }
 
 // Find a way to make this not so verbose...
-const ConnectedStateDisplayer = connect<
-  TExternalProps,
-  TStateProps,
-  TDispatchProps
->(
+const ConnectedStateDisplayer = connect<TExternalProps>(
   mapStateToProps,
   mapDispatchToProps
 )(StateDisplayer);
