@@ -1,4 +1,5 @@
-import { ActionType, connect, TAppState, TDispatch } from "./Store";
+import { ActionType, useDispatch, useSelector } from "./Store";
+import * as selectors from "./selectors";
 import Title from "./Title";
 
 type TExternalProps = {
@@ -37,43 +38,18 @@ function StateDisplayer({
   );
 }
 
-// TODO: State slices
-function mapStateToProps(state: TAppState): TStateProps {
-  // TODO: Selectors
-  console.log("State has changed!");
-  const name = state.name;
-  const count = state.count;
-  return {
-    name,
-    count,
+function ConnectedStateDisplayer(props: TExternalProps) {
+  const stateProps: TStateProps = {
+    name: useSelector(selectors.getName),
+    count: useSelector(selectors.getCount),
   };
-}
-
-function mapDispatchToProps(dispatch: TDispatch): TDispatchProps {
-  return {
+  const dispatch = useDispatch();
+  const dispatchProps: TDispatchProps = {
     incrementCount: () => dispatch({ kind: ActionType.increment }),
     decrementCount: () => dispatch({ kind: ActionType.decrement }),
   };
+
+  return <StateDisplayer {...props} {...stateProps} {...dispatchProps} />;
 }
-
-// Find a way to make this not so verbose...
-const ConnectedStateDisplayer = connect<TExternalProps>(
-  mapStateToProps,
-  mapDispatchToProps
-)(StateDisplayer);
-
-// function ConnectedStateDisplayer({ ...externalProps }: TExternalProps) {
-//   // TODO: hide this behind "connect"
-//   const { getState, dispatch } = useContext(AppContext);
-//   const stateProps = mapStateToProps(getState());
-//   const stateUpdateProps = mapDispatchToProps(dispatch);
-//   const props: TComponentProps = {
-//     ...stateProps,
-//     ...stateUpdateProps,
-//     ...externalProps,
-//   };
-//   console.log("rerendering");
-//   return <StateDisplayer {...props} />;
-// }
 
 export default ConnectedStateDisplayer;

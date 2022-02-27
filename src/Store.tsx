@@ -1,5 +1,6 @@
 import * as React from "react";
-import { useReducer } from "react";
+
+// TODO: Bust this out into it's own file under `lib/` or something.
 
 // TODO Create these by combining slices
 export type TAppState = Readonly<{
@@ -43,7 +44,7 @@ type TAppStore = {
 
 function AppStore({ children }: { children: React.ReactNode }) {
   const rootReducer = reducer; // TODO Combined reducers
-  const [state, dispatch] = useReducer(rootReducer, kDefaultAppState);
+  const [state, dispatch] = React.useReducer(rootReducer, kDefaultAppState);
   const store: TAppStore = { getState: () => state, dispatch };
   (window as any).store = store; // TODO: Find a less hacky approach?
   return <AppContext.Provider value={store}>{children}</AppContext.Provider>;
@@ -58,7 +59,6 @@ function connect<C, S = {}, D = {}>(
   mapStateToProps: (state: TAppState) => S,
   mapDispatchToProps?: (dispatch: TDispatch) => D
 ) {
-  // TODO: Can this be explicitly typed?
   return (Component: any) => (props: C) => {
     return (
       <AppContext.Consumer>
@@ -72,4 +72,16 @@ function connect<C, S = {}, D = {}>(
   };
 }
 
-export { AppStore, connect };
+// TODO: Statically type this to account for state slices, instead of just TAppState?
+// TODO: Add caching/memoization with equality function
+function useSelector<T>(selector: (state: TAppState) => T): T {
+  const { getState } = React.useContext(AppContext);
+  return selector(getState());
+}
+
+function useDispatch() {
+  const { dispatch } = React.useContext(AppContext);
+  return dispatch;
+}
+
+export { AppStore, connect, useSelector, useDispatch };
