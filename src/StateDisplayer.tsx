@@ -1,5 +1,5 @@
-import { ActionType, useDispatch, useSelector } from "./Store";
 import * as selectors from "./selectors";
+import { useSelector, useDispatch } from "./state/utils";
 import Title from "./Title";
 
 type TExternalProps = {
@@ -45,8 +45,8 @@ function ConnectedStateDisplayer(props: TExternalProps) {
   };
   const dispatch = useDispatch();
   const dispatchProps: TDispatchProps = {
-    incrementCount: () => dispatch({ kind: ActionType.increment }),
-    decrementCount: () => dispatch({ kind: ActionType.decrement }),
+    incrementCount: () => dispatch({ kind: "count/increment" }),
+    decrementCount: () => dispatch({ kind: "count/decrement" }),
   };
 
   return <StateDisplayer {...props} {...stateProps} {...dispatchProps} />;

@@ -1,12 +1,12 @@
 // TODO: Make these per slice
 
-import { TAppState } from "./Store";
+import type { TStateName, TStateCount } from "./state";
 
-export function getName(state: TAppState): string {
+export function getName(state: TStateName): string {
   return state.name;
 }
 
-export function getCount(state: TAppState): number {
+export function getCount(state: TStateCount): number {
   return state.count;
 }
 

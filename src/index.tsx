@@ -2,13 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import { AppStore } from "./Store";
+import { store, AppContext, TRootState } from "./state/index";
+import { Provider } from "./minidux/store";
 
 ReactDOM.render(
   <React.StrictMode>
-    <AppStore>
+    <Provider<TRootState> Context={AppContext} store={store}>
       <App />
-    </AppStore>
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );
