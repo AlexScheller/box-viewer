@@ -21,6 +21,9 @@ export type TReducerIngredients<S> = {
   readonly unsafeHandler?: TReducer<S>;
 };
 
+// --- selectors ---
+export type TSelector<S, T> = (state: S) => T;
+
 // --- store ---
 export type TStoreContext<S> = {
   readonly getState: () => S;

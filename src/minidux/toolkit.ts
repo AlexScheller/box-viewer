@@ -30,6 +30,8 @@ function combineReducers<R>(
       ...action,
       type: rest.join("/") as TActionType,
     };
+    console.log(reducerKey);
+    console.log(subAction);
     return reducers[reducerKey as keyof R](state, subAction);
   };
 }
@@ -49,9 +51,12 @@ function combineReducers<R>(
 
 // function makeUseDispatch();
 
+// Right now `connect/useSelector/useDispatch` have to be created by the library consumer, but the
+// following factories make it pretty painless to do so.
+
 // TODO: Add caching/memoization with equality function
-function makeUseSelector<S, T>(context: React.Context<TStoreContext<S>>) {
-  return (selector: (state: S) => T): T => {
+function makeUseSelector<S>(context: React.Context<TStoreContext<S>>) {
+  return <T>(selector: (state: S) => T): T => {
     const { getState } = React.useContext(context);
     return selector(getState());
   };

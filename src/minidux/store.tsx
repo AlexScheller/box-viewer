@@ -27,7 +27,7 @@ function Provider<S>({
     getState: () => state as S,
     dispatch,
   };
-  (window as any).store = store; // TODO: Find a less hacky approach?
+  (window as any).store = storeContext; // TODO: Find a less hacky approach?
   return <Context.Provider value={storeContext}>{children}</Context.Provider>;
 }
 
