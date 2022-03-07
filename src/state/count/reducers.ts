@@ -20,7 +20,7 @@ const countsHandlers: TReducerHandlers<TStateCounts> = {
   decrement: (state: TStateCounts, action: TAction<TEmptyPayload>) => {
     return {
       ...state,
-      count: state.count + 1,
+      count: state.count - 1,
     };
   },
 };

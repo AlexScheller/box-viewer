@@ -1,7 +1,6 @@
 import type { TAction, TEmptyPayload } from "../../minidux/typedefs";
 
 // TODO: Create a factory for these
-
 export function increment(): TAction<TEmptyPayload> {
   return {
     type: "counts/increment", // TODO Reify this for type safety

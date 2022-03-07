@@ -22,7 +22,6 @@ const rootReducer = combineReducers<TStateRoot>({
 const store: TAppStore<TStateRoot> = {
   rootReducer,
   defaultState: kDefaultRootState,
-  //   context: React.createContext<TStoreContext<TRootState>>(null as any),
 };
 
 const AppContext = React.createContext<TStoreContext<TStateRoot>>(null as any);

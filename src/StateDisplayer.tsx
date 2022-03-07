@@ -1,9 +1,12 @@
 import { useSelector, useDispatch } from "./state/utils";
+// import { connect } from "./state/utils";
 import * as nameSelectors from "./state/name/selectors";
 import * as nameActions from "./state/name/action_creators";
 import * as countSelectors from "./state/count/selectors";
 import * as countActions from "./state/count/action_creators";
 import Title from "./Title";
+// import { TStateRoot } from "./state/typedefs";
+// import { TDispatch } from "./minidux/typedefs";
 
 type TExternalProps = Readonly<{
   title: string;
@@ -44,6 +47,8 @@ function StateDisplayer({
   );
 }
 
+// Example with hooks
+
 function ConnectedStateDisplayer(props: TExternalProps) {
   // Dude what is this type inference magic...
   const stateProps: TStateProps = {
@@ -60,5 +65,27 @@ function ConnectedStateDisplayer(props: TExternalProps) {
 
   return <StateDisplayer {...props} {...stateProps} {...dispatchProps} />;
 }
+
+// Example With connect
+
+// function mapStateToProps(state: TStateRoot): TStateProps {
+//   return {
+//     name: nameSelectors.getName(state),
+//     count: countSelectors.getCount(state),
+//   };
+// }
+
+// function mapDispatchToProps(dispatch: TDispatch): TDispatchProps {
+//   return {
+//     appendName: () => dispatch(nameActions.append()),
+//     incrementCount: () => dispatch(countActions.increment()),
+//     decrementCount: () => dispatch(countActions.decrement()),
+//   };
+// }
+
+// const ConnectedStateDisplayer = connect<TExternalProps>(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(StateDisplayer);
 
 export default ConnectedStateDisplayer;
