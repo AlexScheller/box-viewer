@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Provider } from "../minidux/store";
+import { Provider } from "../minidux/provider";
 import { combineReducers } from "../minidux/toolkit";
 import type { TAppStore, TStoreContext } from "../minidux/typedefs";
 import { counts, kDefaultCountsState } from "./count/reducers";
@@ -24,13 +24,11 @@ const store: TAppStore<TStateRoot> = {
   defaultState: kDefaultRootState,
 };
 
+// It's ok to provide the default value as `null as any` because the context should never be
+// accessed except through `Provider`, which will always provided a full instantiated value to the
+// context.
 const AppContext = React.createContext<TStoreContext<TStateRoot>>(null as any);
 
-// This is the only reason this file has to be `.tsx`. There's not really any downside to this
-// other than it "feels" nicer to have all of the state files be plain `.ts` I guess...
-// Basically the choice is either composing this up in `index.tsx` purely from imported stuff, or
-// just doing that here so that `index.tsx` can import and use a single thing. Not sure which I
-// prefer right now.
 function AppStateProvider({ children }: { children: React.ReactNode }) {
   return (
     <Provider<TStateRoot> Context={AppContext} store={store}>
