@@ -2,18 +2,18 @@ import * as React from "react";
 import { Provider } from "../minidux/provider";
 import { combineReducers } from "../minidux/toolkit";
 import type { TAppStore, TStoreContext } from "../minidux/typedefs";
-import { counts, kDefaultCountsState } from "./count/reducers";
-import { names, kDefaultNamesState } from "./name/reducers";
+import { scene, kDefaultSceneState } from "./scene/reducers";
 import type { TStateRoot } from "./typedefs";
+import { ui, kDefaultUIState } from "./ui/reducers";
 
 const kDefaultRootState: TStateRoot = {
-  counts: { ...kDefaultCountsState },
-  names: { ...kDefaultNamesState },
+  ui: { ...kDefaultUIState },
+  scene: { ...kDefaultSceneState },
 };
 
 const rootReducer = combineReducers<TStateRoot>({
-  counts,
-  names,
+  ui,
+  scene,
 });
 
 // TODO: Make this more automatic?

@@ -1,11 +1,10 @@
-import React from "react";
-import "./App.css";
-import StateDisplayer from "./StateDisplayer";
+import * as React from "react";
+import { VisualizationCanvas } from "components/visualization/VizualizationCanvas";
 
 function App() {
   return (
     <div className="App">
-      <StateDisplayer title={"The State Displayer"} />
+      <VisualizationCanvas />
     </div>
   );
 }
